@@ -50,7 +50,7 @@ export default class Modal extends Component {
       >
         <div className={styles.Modal}>{children}</div>
       </div>,
-      MODAL_ROOT,
+      MODAL_ROOT
     );
   }
 }
