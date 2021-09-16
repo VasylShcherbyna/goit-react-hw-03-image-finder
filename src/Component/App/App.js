@@ -1,11 +1,11 @@
-import React, { Component } from 'react';
-import Searchbar from '../Searchbar/Searchbar';
-import ImageGallery from '../ImageGallery/ImageGallery';
-import * as imagesApi from '../../services/images-api';
-import Button from '../Button/Button';
-import Loader from '../Loader/Loader';
-import Modal from '../Modal/Modal';
-import styles from '../App/App.module.css';
+import React, { Component } from "react";
+import Searchbar from "../Searchbar/Searchbar";
+import ImageGallery from "../ImageGallery/ImageGallery";
+import * as imagesApi from "../../services/images-api";
+import Button from "../Button/Button";
+import Loader from "../Loader/Loader";
+import Modal from "../Modal/Modal";
+import styles from "../App/App.module.css";
 
 export default class App extends Component {
   static defaultProps = {};
@@ -15,8 +15,8 @@ export default class App extends Component {
   state = {
     images: [],
     pageNumber: 1,
-    search: '',
-    error: '',
+    search: "",
+    error: "",
     isLoading: false,
     isModalOpen: false,
     largeImageId: null,
@@ -30,7 +30,7 @@ export default class App extends Component {
     }
   }
 
-  onSearch = search => {
+  onSearch = (search) => {
     this.setState({ search, images: [], pageNumber: 1 });
   };
 
@@ -38,25 +38,25 @@ export default class App extends Component {
     this.fetchImages(true);
   };
 
-  fetchImages = scroll => {
+  fetchImages = (scroll) => {
     this.setState({ isLoading: true });
     const { search, pageNumber } = this.state;
     imagesApi
       .fetchImages(search, pageNumber)
-      .then(images => {
-        this.setState(state => ({
+      .then((images) => {
+        this.setState((state) => ({
           images: [...state.images, ...images],
           pageNumber: state.pageNumber + 1,
         }));
         return images[0];
       })
-      .catch(error => {
+      .catch((error) => {
         this.setState({ error });
       })
       .finally(() => {
         this.setState({ isLoading: false });
       })
-      .then(firstLoadedImage => {
+      .then((firstLoadedImage) => {
         if (scroll) {
           const { id } = firstLoadedImage;
 
@@ -66,20 +66,20 @@ export default class App extends Component {
             80;
           window.scrollTo({
             top: y,
-            behavior: 'smooth',
+            behavior: "smooth",
           });
         }
       });
   };
 
   findPic = () => {
-    const largeImg = this.state.images.find(image => {
+    const largeImg = this.state.images.find((image) => {
       return image.id === this.state.largeImageId;
     });
     return largeImg;
   };
 
-  openModal = e => {
+  openModal = (e) => {
     this.setState({
       isModalOpen: true,
       largeImageId: Number(e.currentTarget.id),
