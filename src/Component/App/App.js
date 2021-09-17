@@ -95,9 +95,10 @@ export default class App extends Component {
         <Searchbar onSubmit={this.onSearch} />
         <ImageGallery openModal={this.openModal} images={images} />
         {isLoading && <Loader />}
-        {images.length > 0 && (
-          <Button fetchImages={this.fetchImagesWithScroll} />
-        )}
+        {images.length > 0 
+          ?<Button fetchImages={this.fetchImagesWithScroll} />
+          :<div className={styles.Warning}>You have to write down right word for search</div>
+        }
         {isModalOpen && (
           <Modal largeImageId={largeImageId} onClose={this.closeModal}>
             <img src={this.findPic().largeImageURL} alt={this.findPic().tags} />
