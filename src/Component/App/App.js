@@ -59,13 +59,8 @@ export default class App extends Component {
       .then((firstLoadedImage) => {
         if (scroll) {
           const { id } = firstLoadedImage;
-
-          const y =
-            document.getElementById(id).getBoundingClientRect().top +
-            window.scrollY -
-            80;
           window.scrollTo({
-            top: y,
+            top: document.documentElement.scrollHeight,
             behavior: "smooth",
           });
         }
@@ -95,10 +90,13 @@ export default class App extends Component {
         <Searchbar onSubmit={this.onSearch} />
         <ImageGallery openModal={this.openModal} images={images} />
         {isLoading && <Loader />}
-        {images.length > 0 
-          ?<Button fetchImages={this.fetchImagesWithScroll} />
-          :<div className={styles.Warning}>You have to write down right word for search</div>
-        }
+        {images.length > 0 ? (
+          <Button fetchImages={this.fetchImagesWithScroll} />
+        ) : (
+          <div className={styles.Warning}>
+            You have to write down right word for search
+          </div>
+        )}
         {isModalOpen && (
           <Modal largeImageId={largeImageId} onClose={this.closeModal}>
             <img src={this.findPic().largeImageURL} alt={this.findPic().tags} />
