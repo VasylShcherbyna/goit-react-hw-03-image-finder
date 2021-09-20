@@ -1,4 +1,5 @@
 export const fetchImages = (query = "", pageNumber = 1) => {
+
   return fetch(
     `https://pixabay.com/api/?q=${query}&page=${pageNumber}&key=22516391-185885990a61958acb3a57b33&image_type=photo&orientation=horizontal&per_page=12`
   )

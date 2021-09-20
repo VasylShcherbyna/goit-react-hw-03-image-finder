@@ -87,6 +87,7 @@ export default class App extends Component {
 
     return (
       <div className={styles.App}>
+        {this.state.error && <h2 className={styles.error}>No pictures were found for your query</h2>}
         <Searchbar onSubmit={this.onSearch} />
         <ImageGallery openModal={this.openModal} images={images} />
         {isLoading && <Loader />}
